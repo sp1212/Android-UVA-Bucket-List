@@ -1,5 +1,6 @@
 package edu.virginia.cs4720.bucketlist.scp4exq
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +8,10 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(var context: Context): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
-    private var titles = arrayOf("Task 1", "Task 2", "Task 3", "Task 4", "Task 5")
-    private var dates = arrayOf("11/16/2000", "01/16/1966", "07/27/1966", "09/29/2022", "09/30/2022")
+    var db = DatabaseHandler(context)
+    var data = db.readData().sortedBy { it.dueDate }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
@@ -18,12 +19,12 @@ class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return titles.size
+        return data.size
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
-        holder.itemTitle.text = titles[position]
-        holder.itemDate.text = dates[position]
+        holder.itemTitle.text = data[position].title
+        holder.itemDate.text = data[position].dueDate
 
     }
 

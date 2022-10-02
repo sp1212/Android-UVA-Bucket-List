@@ -1,6 +1,7 @@
 package edu.virginia.cs4720.bucketlist.scp4exq
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -43,6 +44,9 @@ class ActivityNew : AppCompatActivity() {
                 var item = BucketItem(itemTitle.text.toString(), chosenDate.text.toString())
                 var db = DatabaseHandler(context)
                 db.insertData(item)
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             } else {
                 Toast.makeText(context, "Please input a title and date.", Toast.LENGTH_SHORT).show()
             }

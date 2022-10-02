@@ -47,6 +47,33 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
             Toast.makeText(context, "Item created successfully.", Toast.LENGTH_SHORT).show()
         }
     }
+
+    fun readData() : MutableList<BucketItem> {
+        var list : MutableList<BucketItem> = ArrayList()
+
+        val db = this.readableDatabase
+        val query = "Select * from " + TABLE_NAME
+        val result = db.rawQuery(query, null)
+        if (result.moveToFirst()) {
+            do {
+                var item = BucketItem()
+                item.id = result.getString(0).toInt()
+                item.title = result.getString(1)
+                item.dueDate = result.getString(2)
+                if (result.getString(3).toInt() == 1) {
+                    item.completed = true
+                } else {
+                    item.completed = false
+                }
+                item.completedDate = result.getString(4)
+                list.add(item)
+            } while (result.moveToNext())
+        }
+
+        result.close()
+        db.close()
+        return list
+    }
 }
 
 /***************************************************************************************
@@ -55,4 +82,9 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
  *  Author: CodeAndroid
  *  Date: Dec 11, 2017
  *  URL: https://www.youtube.com/watch?v=OxHNcCXnxnE
+ *
+ *  Title: Android Tutorial (Kotlin) - 31 - Read Delete and update SQlite Database Records
+ *  Author: CodeAndroid
+ *  Date: Dec 18, 2017
+ *  URL: https://www.youtube.com/watch?v=vov_rsFWkmM
  ***************************************************************************************/

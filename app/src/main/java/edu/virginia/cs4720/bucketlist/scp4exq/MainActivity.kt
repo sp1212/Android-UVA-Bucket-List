@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
 
         recyclerView.layoutManager = layoutManager
 
-        adapter = RecyclerAdapter()
+        adapter = RecyclerAdapter(this)
         recyclerView.adapter = adapter
 
         val newItemButton = findViewById<FloatingActionButton>(R.id.floatingActionButton)
