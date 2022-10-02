@@ -4,7 +4,9 @@ import android.app.DatePickerDialog
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_new.*
 import java.util.*
 
 class ActivityNew : AppCompatActivity() {
@@ -32,6 +34,20 @@ class ActivityNew : AppCompatActivity() {
                 }, y, m, d)
             dpg.show()
         }
+
+        val context = this
+
+        submitButton.setOnClickListener {
+            if (itemTitle.text.toString().length > 0 && chosenDate.text.toString().length > 0
+                && chosenDate.text.toString().compareTo("Due Date") !== 0) {
+                var item = BucketItem(itemTitle.text.toString(), chosenDate.text.toString())
+                var db = DatabaseHandler(context)
+                db.insertData(item)
+            } else {
+                Toast.makeText(context, "Please input a title and date.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
     }
 }
 
@@ -46,4 +62,9 @@ class ActivityNew : AppCompatActivity() {
  *  Author: chaitanyamunje
  *  Date: 17 Jul, 2022
  *  URL: https://www.geeksforgeeks.org/datepicker-in-android/
+ *
+ *  Title: Android Tutorial (Kotlin) - 30 - SQLite Database Creation and Insertion
+ *  Author: CodeAndroid
+ *  Date: Dec 11, 2017
+ *  URL: https://www.youtube.com/watch?v=OxHNcCXnxnE
  ***************************************************************************************/
