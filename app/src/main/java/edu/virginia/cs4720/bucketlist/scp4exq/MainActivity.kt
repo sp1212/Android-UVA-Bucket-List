@@ -23,3 +23,11 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 }
+
+/***************************************************************************************
+ *  REFERENCES
+ *  Title: RecyclerView in Android Studio [Kotlin 2020]
+ *  Author: CodeWithMazn
+ *  Date: September 10, 2020
+ *  URL: https://www.youtube.com/watch?v=UCddGYMQJCo
+ ***************************************************************************************/
