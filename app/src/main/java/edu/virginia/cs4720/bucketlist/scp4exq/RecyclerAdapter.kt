@@ -1,12 +1,15 @@
 package edu.virginia.cs4720.bucketlist.scp4exq
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
+
 
 class RecyclerAdapter(var context: Context): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
@@ -25,18 +28,28 @@ class RecyclerAdapter(var context: Context): RecyclerView.Adapter<RecyclerAdapte
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
         holder.itemTitle.text = data[position].title
         holder.itemDate.text = data[position].dueDate
+        holder.itemId.text = data[position].id.toString()
 
+        holder.itemView.setOnClickListener { view ->
+            val intent = Intent(view.context, ActivityEdit::class.java)
+            intent.putExtra("title", data[position].title)
+            intent.putExtra("dueDate", data[position].dueDate)
+            intent.putExtra("id", data[position].id.toString())
+            view.context.startActivity(intent)
+        }
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         var itemTitle: TextView
         var itemDate: TextView
         var itemCheck: CheckBox
+        var itemId: TextView
 
         init {
             itemCheck = itemView.findViewById(R.id.checkBox)
             itemTitle = itemView.findViewById(R.id.item_title)
             itemDate = itemView.findViewById(R.id.item_date)
+            itemId = itemView.findViewById(R.id.itemId)
         }
     }
 
@@ -48,4 +61,9 @@ class RecyclerAdapter(var context: Context): RecyclerView.Adapter<RecyclerAdapte
  *  Author: CodeWithMazn
  *  Date: September 10, 2020
  *  URL: https://www.youtube.com/watch?v=UCddGYMQJCo
+ *
+ *  Title: How to open a different activity on recyclerView item onclick
+ *  Author: Milad Moosavi
+ *  Date: Nov 18, 2017
+ *  URL: https://stackoverflow.com/questions/28767413/how-to-open-a-different-activity-on-recyclerview-item-onclick
  ***************************************************************************************/
