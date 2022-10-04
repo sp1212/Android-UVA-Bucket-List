@@ -5,6 +5,8 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.widget.Toast
+import java.util.*
+import kotlin.collections.ArrayList
 
 val DATABASE_NAME = "MyDatabase"
 val TABLE_NAME = "Items"
@@ -73,6 +75,41 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         result.close()
         db.close()
         return list
+    }
+
+    fun changeCompleted(id : Int, status : Boolean) {
+        val cal = Calendar.getInstance()
+        val y = cal.get(Calendar.YEAR)
+        val m = cal.get(Calendar.MONTH)
+        val d = cal.get(Calendar.DAY_OF_MONTH)
+
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        if (status === true) {
+            cv.put(COL_COMPLETED, 1)
+            cv.put(COL_COMPLETEDDATE, y.toString() + "-" + (m + 1) + "-" + d)
+        } else {
+            cv.put(COL_COMPLETED, 0)
+            cv.put(COL_COMPLETEDDATE, "")
+        }
+        db.update(TABLE_NAME, cv, COL_ID + "=?", arrayOf(id.toString()))
+        db.close()
+    }
+
+    fun editItem(id : Int, title : String, dueDate : String) {
+        val db = this.writableDatabase
+        var cv = ContentValues()
+        cv.put(COL_TITLE, title)
+        cv.put(COL_DUEDATE, dueDate)
+
+        db.update(TABLE_NAME, cv, COL_ID + "=?", arrayOf(id.toString()))
+        db.close()
+    }
+
+    fun deleteItem(id : Int) {
+        val db = this.writableDatabase
+        db.delete(TABLE_NAME, COL_ID + "=?", arrayOf(id.toString()))
+        db.close()
     }
 }
 

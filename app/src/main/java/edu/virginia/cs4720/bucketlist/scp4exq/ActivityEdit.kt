@@ -8,7 +8,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_edit.*
 import kotlinx.android.synthetic.main.activity_new.*
+import kotlinx.android.synthetic.main.activity_new.itemTitle
+import kotlinx.android.synthetic.main.activity_new.submitButton
 import java.util.*
 
 class ActivityEdit : AppCompatActivity() {
@@ -17,6 +20,7 @@ class ActivityEdit : AppCompatActivity() {
     lateinit var chosenDate: TextView
     lateinit var title: EditText
     lateinit var id: TextView
+    lateinit var completionStatus: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,11 +30,17 @@ class ActivityEdit : AppCompatActivity() {
         chosenDate = findViewById(R.id.chooseDate)
         title = findViewById(R.id.itemTitle)
         id = findViewById(R.id.itemId)
+        completionStatus = findViewById(R.id.completionStatus)
 
 
         chosenDate.text = intent.getStringExtra("dueDate").toString()
         title.setText(intent.getStringExtra("title").toString())
         id.text = intent.getStringExtra("id").toString()
+        if (intent.getBooleanExtra("completed", false) === true) {
+            completionStatus.text = "Completed " + intent.getStringExtra("completedDate").toString()
+        } else {
+            completionStatus.text = "Incomplete"
+        }
 
 
         chooseDate.setOnClickListener {
@@ -50,16 +60,32 @@ class ActivityEdit : AppCompatActivity() {
         val context = this
 
         submitButton.setOnClickListener {
-            if (itemTitle.text.toString().length > 0 && chosenDate.text.toString().length > 0
+            if (itemTitle.text.toString().isNotEmpty() && chosenDate.text.toString().isNotEmpty()
                 && chosenDate.text.toString().compareTo("Due Date") !== 0) {
-                var item = BucketItem(itemTitle.text.toString(), chosenDate.text.toString())
+
+
+                var id = id.text.toString().toInt()
+                var title = title.text.toString()
+                var dueDate = chosenDate.text.toString()
                 var db = DatabaseHandler(context)
-                db.insertData(item)
+                db.editItem(id, title, dueDate)
 
                 val intent = Intent(this, MainActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(context, "Please input a title and date.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Please input a valid title and date.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        deleteButton.setOnClickListener {
+            if (id.text.toString().toInt() >= 0) {
+                var db = DatabaseHandler(context)
+                db.deleteItem(id.text.toString().toInt())
+
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(context, "Unable to delete item.", Toast.LENGTH_SHORT).show()
             }
         }
 

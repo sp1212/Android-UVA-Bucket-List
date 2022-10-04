@@ -14,7 +14,10 @@ import androidx.recyclerview.widget.RecyclerView
 class RecyclerAdapter(var context: Context): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
 
     var db = DatabaseHandler(context)
-    var data = db.readData().sortedBy { it.dueDate }
+    var allData = db.readData()
+    var notCompletedData = allData.filter { it.completed === false }.sortedBy { it.dueDate }
+    var completedData = allData.filter { it.completed === true }.sortedBy { it.dueDate }
+    var data = notCompletedData.plus(completedData)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
@@ -30,12 +33,28 @@ class RecyclerAdapter(var context: Context): RecyclerView.Adapter<RecyclerAdapte
         holder.itemDate.text = data[position].dueDate
         holder.itemId.text = data[position].id.toString()
 
+        holder.itemCheck.isChecked = data[position].completed === true
+
         holder.itemView.setOnClickListener { view ->
             val intent = Intent(view.context, ActivityEdit::class.java)
             intent.putExtra("title", data[position].title)
             intent.putExtra("dueDate", data[position].dueDate)
             intent.putExtra("id", data[position].id.toString())
+            intent.putExtra("completed", data[position].completed)
+            intent.putExtra("completedDate", data[position].completedDate)
             view.context.startActivity(intent)
+        }
+
+        holder.itemCheck.setOnCheckedChangeListener { view, checked ->
+            if (holder.itemCheck.isChecked === true) {
+                db.changeCompleted(data[position].id, true)
+                val intent = Intent(view.context, MainActivity::class.java)
+                view.context.startActivity(intent)
+            } else {
+                db.changeCompleted(data[position].id, false)
+                val intent = Intent(view.context, MainActivity::class.java)
+                view.context.startActivity(intent)
+            }
         }
     }
 
