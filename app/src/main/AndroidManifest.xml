@@ -22,8 +22,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityNew"></activity>
-        <activity android:name=".ActivityEdit"></activity>
+        <activity android:name=".ActivityNew"
+            android:parentActivityName=".MainActivity">
+        </activity>
+        <activity android:name=".ActivityEdit"
+            android:parentActivityName=".MainActivity">
+        </activity>
     </application>
 
 </manifest>

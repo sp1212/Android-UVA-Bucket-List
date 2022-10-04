@@ -8,13 +8,13 @@ import android.widget.Toast
 import java.util.*
 import kotlin.collections.ArrayList
 
-val DATABASE_NAME = "MyDatabase"
-val TABLE_NAME = "Items"
-val COL_ID = "id"
-val COL_TITLE = "title"
-val COL_DUEDATE = "dueDate"
-val COL_COMPLETED = "completed"
-val COL_COMPLETEDDATE = "completedDate"
+const val DATABASE_NAME = "MyDatabase"
+const val TABLE_NAME = "Items"
+const val COL_ID = "id"
+const val COL_TITLE = "title"
+const val COL_DUEDATE = "dueDate"
+const val COL_COMPLETED = "completed"
+const val COL_COMPLETEDDATE = "completedDate"
 
 class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, 1) {
     override fun onCreate(db: SQLiteDatabase?) {
@@ -43,7 +43,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         cv.put(COL_COMPLETEDDATE, item.completedDate)
 
         var result = db.insert(TABLE_NAME, null, cv)
-        if (result == -1.toLong()) {
+        if (result == (-1).toLong()) {
             Toast.makeText(context, "Item creation failure.", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(context, "Item created successfully.", Toast.LENGTH_SHORT).show()
@@ -62,11 +62,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
                 item.id = result.getString(0).toInt()
                 item.title = result.getString(1)
                 item.dueDate = result.getString(2)
-                if (result.getString(3).toInt() == 1) {
-                    item.completed = true
-                } else {
-                    item.completed = false
-                }
+                item.completed = result.getString(3).toInt() == 1
                 item.completedDate = result.getString(4)
                 list.add(item)
             } while (result.moveToNext())
