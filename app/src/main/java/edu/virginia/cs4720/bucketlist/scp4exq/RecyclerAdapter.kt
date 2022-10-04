@@ -16,7 +16,7 @@ class RecyclerAdapter(var context: Context): RecyclerView.Adapter<RecyclerAdapte
     var db = DatabaseHandler(context)
     var allData = db.readData()
     var notCompletedData = allData.filter { it.completed === false }.sortedBy { it.dueDate }
-    var completedData = allData.filter { it.completed === true }.sortedBy { it.dueDate }
+    var completedData = allData.filter { it.completed === true }.sortedBy { it.completedDate }
     var data = notCompletedData.plus(completedData)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
