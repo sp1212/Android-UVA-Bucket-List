@@ -22,7 +22,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         android:clickable="true"
-        app:backgroundTint="#FF9800"
+        app:backgroundTint="@color/orange"
         app:layout_constraintBottom_toBottomOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="@+id/recyclerView"
         app:srcCompat="@android:drawable/ic_menu_add" />

@@ -9,12 +9,13 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:layout_marginBottom="32dp"
         android:text="Edit Item"
-        android:textSize="34sp"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="48sp"
         app:layout_constraintBottom_toTopOf="@+id/itemTitle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,50 +23,61 @@
         android:id="@+id/itemTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="35dp"
         android:ems="10"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:text="Item Title"
-        app:layout_constraintBottom_toTopOf="@+id/chooseDate"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
         android:id="@+id/submitButton"
         android:layout_width="181dp"
         android:layout_height="56dp"
-        android:layout_marginTop="148dp"
         android:text="Submit"
-        android:textColor="#424242"
-        app:backgroundTint="#FF9800"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/orange"
+        app:layout_constraintBottom_toTopOf="@+id/deleteButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseDate" />
+        app:layout_constraintTop_toBottomOf="@+id/completionStatus" />
 
     <TextView
         android:id="@+id/chooseDate"
         android:layout_width="181dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_height="48dp"
+        android:autoText="true"
         android:text="Due Date"
-        android:textSize="34sp"
-        app:layout_constraintBottom_toTopOf="@+id/submitButton"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintHorizontal_bias="0.875"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.455" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="110dp"
         android:layout_height="68dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="48dp"
+        android:backgroundTint="@color/blue"
         android:text="Choose Date"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/completionStatus"
+        app:layout_constraintTop_toBottomOf="@+id/itemTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/itemTitle" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/chooseDate"
+        tools:layout_editor_absoluteX="241dp" />
 
     <TextView
         android:id="@+id/itemId"
@@ -73,6 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:text="ID HERE"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -81,9 +94,12 @@
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="#FF0000"
         android:text="Delete"
-        app:layout_constraintBottom_toBottomOf="@+id/itemId"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/submitButton" />
 
@@ -91,12 +107,12 @@
         android:id="@+id/completionStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
         android:text="CompletionStatus"
+        android:textColor="@color/black"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/submitButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/chooseDate"
-        app:layout_constraintVertical_bias="0.096" />
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

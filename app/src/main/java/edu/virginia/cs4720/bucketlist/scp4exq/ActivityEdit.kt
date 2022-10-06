@@ -88,7 +88,7 @@ class ActivityEdit : AppCompatActivity() {
                 Toast.makeText(context, "Unable to delete item.", Toast.LENGTH_SHORT).show()
             }
         }
-
+        supportActionBar?.title = "UVA Bucket List"
     }
 
 }

@@ -30,6 +30,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, ActivityNew::class.java)
             startActivity(intent)
         }
+
+        supportActionBar?.title = "UVA Bucket List"
     }
 }
 

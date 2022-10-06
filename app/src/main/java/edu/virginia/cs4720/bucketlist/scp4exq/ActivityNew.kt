@@ -52,7 +52,7 @@ class ActivityNew : AppCompatActivity() {
                 Toast.makeText(context, "Please input a title and date.", Toast.LENGTH_SHORT).show()
             }
         }
-
+        supportActionBar?.title = "UVA Bucket List"
     }
 }
 
