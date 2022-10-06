@@ -52,7 +52,7 @@ class ActivityEdit : AppCompatActivity() {
             val dpg = DatePickerDialog(this,
                 {
                         view, year, monthOfYear, dayOfMonth -> chosenDate.text =
-                    (year.toString() + "-" + (monthOfYear + 1) + "-" + dayOfMonth)
+                    (year.toString() + "-" + formatLeadingZero(monthOfYear + 1) + "-" + formatLeadingZero(dayOfMonth))
                 }, y, m, d)
             dpg.show()
         }
@@ -89,6 +89,14 @@ class ActivityEdit : AppCompatActivity() {
             }
         }
         supportActionBar?.title = "UVA Bucket List"
+    }
+
+    private fun formatLeadingZero(input : Int) : String {
+        return if (input < 10) {
+            "0$input";
+        } else {
+            input.toString();
+        }
     }
 
 }

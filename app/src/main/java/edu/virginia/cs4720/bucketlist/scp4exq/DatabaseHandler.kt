@@ -83,7 +83,7 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         var cv = ContentValues()
         if (status === true) {
             cv.put(COL_COMPLETED, 1)
-            cv.put(COL_COMPLETEDDATE, y.toString() + "-" + (m + 1) + "-" + d)
+            cv.put(COL_COMPLETEDDATE, y.toString() + "-" + formatLeadingZero(m + 1) + "-" + formatLeadingZero(d))
         } else {
             cv.put(COL_COMPLETED, 0)
             cv.put(COL_COMPLETEDDATE, "")
@@ -106,6 +106,14 @@ class DatabaseHandler(var context: Context) : SQLiteOpenHelper(context, DATABASE
         val db = this.writableDatabase
         db.delete(TABLE_NAME, COL_ID + "=?", arrayOf(id.toString()))
         db.close()
+    }
+
+    private fun formatLeadingZero(input : Int) : String {
+        return if (input < 10) {
+            "0$input";
+        } else {
+            input.toString();
+        }
     }
 }
 
