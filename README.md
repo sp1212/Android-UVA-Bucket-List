@@ -5,7 +5,7 @@ The class starter template was used as a base layout through the class's GitHub 
 
 Each card in the recycler view displays the title, due date, and a check box to indicate completion status.  
 Incomplete items are displayed at the top of the list sorted by due date, while completed items are 
-displayed at the top of the list sorted by date completed.  When an item is checked as completed, 
+displayed at the bottom of the list sorted by date completed.  When an item is checked as completed, 
 the completed date is set to the current date.  The date completed can only be set by checking the 
 check box.  This was a design decision based on an open interpretation of the project requirements.
 
